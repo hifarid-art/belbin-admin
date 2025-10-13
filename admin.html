@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель - Тест Белбина</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+    <!-- SheetJS библиотека для Excel -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+    <!-- Модальное окно для пароля -->
+    <div id="passwordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🔐 Доступ к админ-панели</h2>
+            </div>
+            <div class="modal-body">
+                <p>Для доступа к результатам тестирования введите пароль:</p>
+                <div class="password-input-container">
+    <input type="password" id="passwordInput" placeholder="Введите пароль..." class="password-input">
+    <button id="showPassword" class="show-password-btn">👁️</button>
+</div>
+                <div id="passwordError" class="error-message" style="display: none;">
+                    Неверный пароль. Попробуйте снова.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="submitPassword" class="btn-primary">Войти</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="logo-container">
+        <img src="https://driveteam.biz/wp-content/themes/drive/src/icons/logo.svg" alt="Логотип" class="logo">
+    </div>
+    
+    <div class="admin-container" id="adminContent" style="display: none;">
+        <div class="admin-header">
+            <h1>📊 Админ-панель результатов теста Белбина</h1>
+            <p>Управление и анализ результатов тестирования</p>
+        </div>
+
+        <div class="controls">
+            <div class="search-filters-row">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Поиск по ФИО или организации...">
+                    <span class="search-icon">🔍</span>
+                </div>
+                
+                <div class="filters-group">
+                    <div class="date-filter">
+                        <input type="date" id="dateFilter" placeholder="Выберите дату">
+                    </div>
+                    
+                    <select id="sortSelect">
+                        <option value="newest">Сначала новые</option>
+                        <option value="oldest">Сначала старые</option>
+                        <option value="name">По ФИО (А-Я)</option>
+                        <option value="name_desc">По ФИО (Я-А)</option>
+                        <option value="org">По организации (А-Я)</option>
+                    </select>
+                    
+                    <select id="roleFilter">
+                        <option value="">Все роли</option>
+                        <option value="Координатор">Координатор</option>
+                        <option value="Генератор">Генератор</option>
+                        <option value="Реализатор">Реализатор</option>
+                        <option value="Мотиватор">Мотиватор</option>
+                        <option value="Дипломат">Дипломат</option>
+                        <option value="Финишер">Финишер</option>
+                        <option value="Специалист">Специалист</option>
+                        <option value="Критик">Критик</option>
+                        <option value="Душа команды">Душа команды</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="buttons-row">
+                <button id="refreshBtn" class="btn-primary">🔄 Обновить</button>
+                <button id="exportBtn" class="btn-secondary">📥 Excel</button>
+                <button id="clearFilters" class="btn-secondary">🧹 Очистить фильтры</button>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalUsers">0</div>
+                <div class="stat-label">Всего ответов</div>
+            </div>
+            <div class="stat-card" id="todayStatCard">
+                <div class="stat-number" id="todayUsers">0</div>
+                <div class="stat-label" id="todayLabel">Сегодня</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="topRole">-</div>
+                <div class="stat-label">Популярная роль</div>
+            </div>
+        </div>
+
+        <div class="results-grid" id="resultsGrid">
+            <div class="loading">Загрузка данных...</div>
+        </div>
+
+        <div class="belbin-pagination" id="paginationContainer" style="display: none;">
+    <div class="belbin-pagination-info">
+        Показано <span id="showingStart">0</span>-<span id="showingEnd">0</span> из <span id="totalShowing">0</span>
+    </div>
+    <div class="belbin-pagination-controls">
+        <button id="firstPage" class="belbin-pagination-btn">«</button>
+        <button id="prevPage" class="belbin-pagination-btn">‹</button>
+        <div class="belbin-page-numbers" id="pageNumbers"></div>
+        <button id="nextPage" class="belbin-pagination-btn">›</button>
+        <button id="lastPage" class="belbin-pagination-btn">»</button>
+    </div>
+</div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
