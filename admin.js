@@ -164,26 +164,17 @@ async function loadResults() {
             }
         });
 
-        console.log('📊 Ответ сервера:', response.status, response.statusText);
-        
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
-        console.log('✅ Данные получены:', data);
-        
         allResults = data.list || [];
-        console.log(`📋 Загружено ${allResults.length} записей`);
-        
-        if (allResults.length > 0) {
-            console.log('📝 Доступные поля в первой записи:', Object.keys(allResults[0]));
-            console.log('👤 Пример первой записи:', allResults[0]);
-        }
         
         updateStats();
         filteredResults = [...allResults];
-        renderResults();
+        
+        filterResults();
         
     } catch (error) {
         console.error('❌ Ошибка загрузки:', error);
@@ -238,9 +229,16 @@ function filterResults() {
         
         switch (sortBy) {
             case 'newest':
-    return getTimestamp(a) - getTimestamp(b);
-case 'oldest':
-    return getTimestamp(b) - getTimestamp(a);
+                const timestampA = getTimestamp(a);
+                const timestampB = getTimestamp(b);
+                console.log('🔍 Сортировка newest:', {
+                    nameA: nameA, timestampA: timestampA, dateA: a.DateTime,
+                    nameB: nameB, timestampB: timestampB, dateB: b.DateTime,
+                    result: timestampB - timestampA
+                });
+                return timestampB - timestampA;
+            case 'oldest':
+                return getTimestamp(a) - getTimestamp(b);
             case 'name':
                 return nameA.localeCompare(nameB);
             case 'name_desc':
@@ -250,6 +248,11 @@ case 'oldest':
             default:
                 return 0;
         }
+    });
+
+     console.log('📋 Первые 3 записи после сортировки:');
+    filteredResults.slice(0, 3).forEach((result, index) => {
+        console.log(`${index + 1}. ${result.Name} - ${result.DateTime} - timestamp: ${getTimestamp(result)}`);
     });
 
     renderResults();
@@ -310,9 +313,19 @@ function getTimestamp(result) {
     if (!dateString) return 0;
     
     try {
+        if (dateString.includes('.')) {
+            const parts = dateString.split(' ');
+            const datePart = parts[0];
+            const [day, month, year] = datePart.split('.');
+            
+            const date = new Date(`${year}-${month}-${day}`);
+            return isNaN(date.getTime()) ? 0 : date.getTime();
+        }
+        
         const date = new Date(dateString);
         return isNaN(date.getTime()) ? 0 : date.getTime();
     } catch (error) {
+        console.warn('❌ Ошибка парсинга даты:', dateString, error);
         return 0;
     }
 }
