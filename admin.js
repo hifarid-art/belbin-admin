@@ -238,9 +238,9 @@ function filterResults() {
         
         switch (sortBy) {
             case 'newest':
-                return getTimestamp(b) - getTimestamp(a);
-            case 'oldest':
-                return getTimestamp(a) - getTimestamp(b);
+    return getTimestamp(a) - getTimestamp(b);
+case 'oldest':
+    return getTimestamp(b) - getTimestamp(a);
             case 'name':
                 return nameA.localeCompare(nameB);
             case 'name_desc':
