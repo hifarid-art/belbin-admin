@@ -1,0 +1,364 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.logo {
+    max-width: 100px;
+    height: auto;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+}
+
+p {
+    text-align: center;
+    color: #7f8c8d;
+    margin-bottom: 20px;
+}
+
+.question-card {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.question-header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.question-card h3 {
+    margin: 0;
+    color: #2c3e50;
+}
+
+.statement {
+    margin-bottom: 25px;
+}
+
+.statement label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: left;
+    padding-left: 5px; 
+}
+
+/* Мобильная версия - два ряда по пять кнопок (1-5 и 6-10) */
+@media (max-width: 767px) {
+    .number-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 0;
+        margin-top: 15px;
+    }
+
+    .number-btn {
+        flex: 1 0 calc(20% - 6px); /* 5 кнопок в строке */
+        min-width: calc(20% - 6px);
+        height: 52px !important;
+        font-size: 17px !important;
+        font-weight: bold;
+        border: 2px solid #ddd;
+        background-color: white;
+        color: #555;
+        border-radius: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    /* Скрываем кнопку с нулем */
+    .number-btn[data-value="0"] {
+        display: none !important;
+    }
+
+    .number-btn:hover {
+        background-color: #f0f0f0;
+    }
+
+    .number-btn.selected {
+        background-color: #B9C231;
+        color: white;
+        border-color: #B9C231;
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(185, 194, 49, 0.3);
+    }
+
+    /* Для очень маленьких экранов */
+    @media (max-width: 380px) {
+        .number-btn {
+            height: 48px !important;
+            font-size: 16px !important;
+        }
+    }
+
+    /* Для landscape ориентации на мобильных */
+    @media (max-width: 767px) and (orientation: landscape) {
+        .number-btn {
+            height: 45px !important;
+            font-size: 15px !important;
+        }
+    }
+}
+
+/* Убедимся, что десктопная версия не влияет на мобильную */
+@media (min-width: 768px) {
+    .number-buttons {
+        display: flex;
+        justify-content: flex-start;
+        gap: 4px;
+        flex-wrap: nowrap;
+        margin-top: 10px;
+    }
+
+    .number-btn {
+        flex: 1;
+        min-width: 28px;
+        max-width: 40px;
+        height: 32px;
+        border: 2px solid #ddd;
+        background-color: white;
+        color: #7f8c8d;
+        border-radius: 8px;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+    }
+
+    /* В десктопной версии ноль показываем */
+    .number-btn[data-value="0"] {
+        display: flex !important;
+    }
+
+    .number-btn.selected {
+        background-color: #B9C231;
+        color: white;
+        border-color: #B9C231;
+    }
+}
+
+.balance {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #e74c3c;
+    font-size: 16px;
+}
+
+#navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#prev-btn, #next-btn {
+    padding: 12px 24px;
+    background-color: #B9C231;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#prev-btn:hover, #next-btn:hover {
+    background-color: #a4ad2c;
+}
+
+#prev-btn:disabled, #next-btn:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+#roles-list li {
+    padding: 12px;
+    margin-bottom: 10px;
+    background-color: #d5eefb;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Вступительная карточка */
+.intro-card {
+    padding: 20px;
+    text-align: center;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.intro-card h2 {
+    color: #2c3e50;
+    margin-top: 0;
+}
+
+.intro-image {
+    margin: 15px 0;
+}
+
+.intro-image img {
+    border-radius: 8px;
+    max-width: 100%;
+    height: auto;
+}
+
+.intro-image p {
+    margin-top: 5px;
+    font-style: italic;
+    color: #7f8c8d;
+}
+
+.intro-card p {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.5;
+}
+
+.form-group {
+    margin: 20px 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+#start-btn {
+    padding: 12px 24px;
+    background-color: #B9C231;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#start-btn:hover {
+    background-color: #a4ad2c;
+}
+
+.question-counter,
+#counter {
+    font-size: 18px;
+    color: #2c3e50;
+    font-weight: normal;
+    display: block;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+#roles-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#roles-list li {
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    background-color: #e8f4fc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #2c3e50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#roles-list li strong {
+    font-weight: 600;
+}
+
+#roles-list li {
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    background-color: #f8f9fa; /* ← брендовый цвет карточек */
+    border: 1px solid #ddd; /* лёгкая граница для разделения */
+    border-radius: 5px;
+    font-size: 16px;
+    color: #2c3e50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#roles-list li strong {
+    font-weight: 600;
+}
+#restart-btn {
+    display: block;
+    margin: 20px auto 0;
+    padding: 12px 24px;
+    background-color: #B9C231;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+#restart-btn:hover {
+    background-color: #a4ad2c;
+}
+#results h2 {
+    text-align: center;
+}
+
+.number-btn.error {
+    background-color: #e74c3c !important;
+    border-color: #c0392b !important;
+    color: white !important;
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    75% { transform: translateX(3px); }
+}
+
